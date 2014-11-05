@@ -1,0 +1,24 @@
+VI manacher(const string & str)
+{
+	VI ret(str.size());
+
+	int R = -1;
+	int p = -1;
+	REP(i, str.size())
+	{
+		ret[i] = i <= R ? min(R - i, ret[2 * p - i]) : 0;
+
+		int left = i - ret[i] - 1;
+		int right = i + ret[i] + 1;
+		while (0 <= left && right <= str.size() && str[left--] == str[right++])
+		{
+			++ret[i];
+			if (i + ret[i] > R)
+			{
+				R = i + ret[i];
+				p = i;
+			}
+		}
+	}
+	return ret;
+}
