@@ -1,0 +1,45 @@
+#define RMIN 0
+#define RMAX 1
+
+class RMQ
+{
+public:
+	int n; // element size
+	bool type; // minimum ? maximum ?
+	VI tree; // Range Min/Max
+
+	RMQ(const VI & vi, const bool select) : type(select)
+	{
+		n = vi.size();
+		tree.resize(n * 4);
+		init(vi, 0, n - 1, 1);
+	}
+
+	int init(const VI & vi, const int left, const int right, const int node)
+	{
+		int & ret = tree[node];
+
+		if (left == right) return ret = vi[left];
+		int mid = (left + right) / 2;
+		int leftval = init(vi, left, mid, node << 1);
+		int rightval = init(vi, mid + 1, right, (node << 1) + 1);
+
+		return ret = (type == RMIN ? min(leftval, rightval) : max(leftval, rightval));
+	}
+
+	int query(int a, int b)
+	{
+		return query(a, b, 1, 0, n - 1);
+	}
+
+private:
+	int query(const int & left, const int & right, int node, int nodel, int noder)
+	{
+		if (right < nodel || noder < left) return type == RMIN ? INF : -INF;
+		if (left <= nodel && noder <= right) return tree[node];
+		int mid = (nodel + noder) / 2;
+		int leftval = query(left, right, node << 1, nodel, mid);
+		int rightval = query(left, right, (node << 1) + 1, mid + 1, noder);
+		return type == RMIN ? min(leftval, rightval) : max(leftval, rightval);
+	}
+};

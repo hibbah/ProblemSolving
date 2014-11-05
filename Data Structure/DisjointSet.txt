@@ -1,0 +1,27 @@
+class DisjointSet
+{
+public:
+	VI parent, rank;
+
+	DisjointSet(const int & n) : parent(n), rank(n, 1)
+	{
+		REP(i, n) parent[i] = i;
+	}
+
+	int find(const int & u)
+	{
+		if (u == parent[u]) return u;
+		return parent[u] = find(parent[u]);
+	}
+
+	bool merge(const int & u, const int & v)
+	{
+		int a = find(u), b = find(v);
+
+		if (a == b) return false;
+		if (rank[a] > rank[b]) swap(a, b);
+		parent[a] = b;
+		if (rank[a] == rank[b]) ++rank[b];
+		return true;
+	}
+};
