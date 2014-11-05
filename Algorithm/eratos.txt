@@ -1,0 +1,27 @@
+VI prime(1, 2);
+
+#define MAX 100000000
+unsigned char isprime[(MAX + 7) / 8];
+
+inline bool isPrime(const int & p)
+{
+	return isprime[p >> 3] & (1 << (p & 7));
+}
+
+void eratosthenes()
+{
+	memset(isprime, 255, sizeof(isprime));
+	isprime[0] &= 0xFD; // 11111100
+
+	int bound = int(sqrt(MAX));
+	for (int p = 4; p <= MAX; p+=2) isprime[p >> 3] &= ~(1 << (p & 7));
+	for (int p = 3; p <= bound; p+=2)
+	{
+		if (isprime[p >> 3] & (1 << (p & 7)))
+		{
+			for (int num = p*p; num <= MAX; num += p)
+				isprime[num >> 3] &= ~(1 << (num & 7));
+		}
+	}
+	for(int p = 3; p<=MAX; p += 2) if (isprime[p >> 3] & (1 << (p & 7))) prime.push_back(p);
+}
