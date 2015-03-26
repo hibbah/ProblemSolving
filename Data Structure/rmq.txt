@@ -1,45 +1,47 @@
-#define RMIN 0
-#define RMAX 1
-
-class RMQ
+class SEGTREE
 {
 public:
-	int n; // element size
-	bool type; // minimum ? maximum ?
-	VI tree; // Range Min/Max
+	int n;
+	vector <int> tree;
 
-	RMQ(const VI & vi, const bool select) : type(select)
+	SEGTREE(const vector <int> & vi)
 	{
 		n = vi.size();
-		tree.resize(n * 4);
+		tree.resize(4 * n);
 		init(vi, 0, n - 1, 1);
 	}
 
-	int init(const VI & vi, const int left, const int right, const int node)
+	int init(const vector <int> & vi, const int left, const int right, const int node)
 	{
-		int & ret = tree[node];
-
-		if (left == right) return ret = vi[left];
-		int mid = (left + right) / 2;
-		int leftval = init(vi, left, mid, node << 1);
-		int rightval = init(vi, mid + 1, right, (node << 1) + 1);
-
-		return ret = (type == RMIN ? min(leftval, rightval) : max(leftval, rightval));
+		if (left == right) return tree[node] = vi[left];
+		const int mid = (left + right) / 2;
+		return tree[node] = init(vi, left, mid, node * 2) + init(vi, mid + 1, right, node * 2 + 1);
 	}
 
-	int query(int a, int b)
+	int query(const int & a, const int & b)
 	{
 		return query(a, b, 1, 0, n - 1);
 	}
 
-private:
-	int query(const int & left, const int & right, int node, int nodel, int noder)
+	int update(const int & idx, const int & val)
 	{
-		if (right < nodel || noder < left) return type == RMIN ? INF : -INF;
-		if (left <= nodel && noder <= right) return tree[node];
-		int mid = (nodel + noder) / 2;
-		int leftval = query(left, right, node << 1, nodel, mid);
-		int rightval = query(left, right, (node << 1) + 1, mid + 1, noder);
-		return type == RMIN ? min(leftval, rightval) : max(leftval, rightval);
+		return update(idx, val, 1, 0, n - 1);
+	}
+
+private:
+	int query(const int & a, const int & b, const int node, const int & nodeleft, const int & noderight)
+	{
+		if (b < nodeleft || noderight < a) return 0;
+		if (a <= nodeleft && noderight <= b) return tree[node];
+		const int mid = (nodeleft + noderight) / 2;
+		return query(a, b, node * 2, nodeleft, mid) + query(a, b, node * 2 + 1, mid + 1, noderight);
+	}
+
+	int update(const int & idx, const int & val, const int node, const int & nodeleft, const int & noderight)
+	{
+		if (idx < nodeleft || noderight < idx) return tree[node];
+		if (nodeleft == noderight) return tree[node] = val;
+		const int mid = (nodeleft + noderight) / 2;
+		return tree[node] = update(idx, val, node * 2, nodeleft, mid) + update(idx, val, node * 2 + 1, mid + 1, noderight);
 	}
 };
