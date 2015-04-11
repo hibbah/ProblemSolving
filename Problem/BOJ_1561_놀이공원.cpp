@@ -52,7 +52,7 @@ PI calcTime()
 	return ret;
 }
 
-// return Machine Number that N-th person boarding
+// return Machine Number that N-th person boards on
 int getMachineNum(const PI & last)
 {
 	ll Time = last.first + 1; // N'th person boarding time
