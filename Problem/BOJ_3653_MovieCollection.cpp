@@ -82,7 +82,7 @@ int main()
 		while (m--)
 		{
 			int DVD; scanf("%d", &DVD);
-			printf("%d ", fenwick.sum(pos[DVD]) - 1); // print a number of 'a' in arr[ 0~pos[DVD] ]
+			printf("%d ", fenwick.sum(pos[DVD]) - 1); // print a number of '1' in arr[ 0~pos[DVD] ]
 			fenwick.add(pos[DVD], -1); // remove DVD from original position pos[DVD] : (1 -> 0)
 			fenwick.add(pos[DVD] = idx--, 1); // insert DVD into new position 'idx' : (0 -> 1)
 		}
