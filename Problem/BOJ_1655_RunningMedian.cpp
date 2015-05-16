@@ -7,6 +7,7 @@ https://www.acmicpc.net/problem/2696/
 https://algospot.com/judge/problem/read/RUNNINGMEDIAN
 
 - title : Running Median
+(ACMICPC_Regionals_NorthAmerica :: GNYPC 2009 - D)
 
 - input : N(<=100,000) integers(-10,000 ~ 10,000)
 - output : Median values each new number is inserted every moment
@@ -65,4 +66,3 @@ int main()
 	}
 	return 0;
 }
-
