@@ -58,14 +58,7 @@ private:
 		
 		if (lazy[node])
 		{
-			tree[node] = (right - left + 1) - tree[node]; // toggle
-
-			if (left != right) // if not leaf
-			{
-				// propagate the toggle information to child
-				lazy[node * 2] = lazy[node * 2] ? false : true;
-				lazy[node * 2 + 1] = lazy[node * 2 + 1] ? false : true;
-			}
+			propagation(node, left, right);
 			lazy[node] = false;
 		}
 		
@@ -78,32 +71,29 @@ private:
 	{
 		if (lazy[node])
 		{
-			tree[node] = (right - left + 1) - tree[node]; // toggle
-
-			if (left != right) // if not leaf
-			{
-				// propagate the toggle information to child
-				lazy[node * 2] = lazy[node * 2] ? false : true;
-				lazy[node * 2 + 1] = lazy[node * 2 + 1] ? false : true;
-			}
+			propagation(node, left, right);
 			lazy[node] = false;
 		}
 
 		if (b < left || right < a) return tree[node];
 		if (a <= left && right <= b)
 		{
-			tree[node] = (right - left + 1) - tree[node]; // toggle
-
-			if (left != right) // if not leaf
-			{
-				// propagate the toggle information to child
-				lazy[node * 2] = lazy[node * 2] ? false : true;
-				lazy[node * 2 + 1] = lazy[node * 2 + 1] ? false : true;
-			}
+			propagation(node, left, right);
 			return tree[node];
 		}
 		const int mid = (left + right) / 2;
 		return tree[node] = update(node * 2, left, mid, a, b) + update(node * 2 + 1, mid + 1, right, a, b);
+	}
+
+	void propagation(const int & node, const int & left, const int & right)
+	{
+		tree[node] = (right - left + 1) - tree[node]; // toggle
+		if (left != right) // if not leaf
+		{
+			// propagate the toggle information to child
+			lazy[node * 2] = lazy[node * 2] ? false : true;
+			lazy[node * 2 + 1] = lazy[node * 2 + 1] ? false : true;
+		}
 	}
 };
 
