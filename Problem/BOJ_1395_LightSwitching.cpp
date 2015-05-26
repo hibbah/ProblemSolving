@@ -45,7 +45,7 @@ public:
 		return query(1, 0, n - 1, a, b);
 	}
 
-	// toggle
+	// toggle all switch in range[a, b]
 	int update(const int & a, const int & b)
 	{
 		return update(1, 0, n - 1, a, b);
