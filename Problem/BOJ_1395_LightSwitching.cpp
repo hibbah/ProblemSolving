@@ -117,7 +117,7 @@ int main()
 		case 0: // toggle in range[a, b]
 			idxtree.update(a, b);
 			break;
-		case 1: // print the number of On-Switch
+		case 1: // print the number of On-Switch in range[a, b]
 			printf("%d\n", idxtree.query(a, b));
 			break;
 		}
