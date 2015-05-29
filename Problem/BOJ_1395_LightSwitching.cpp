@@ -13,7 +13,7 @@ https://www.acmicpc.net/problem/1395
 	2. t == 1 : print the number of On-Switch in range[a, b]
 - issue : how to update(toggle) fast the switch state in range[a, b]
 - solution : using IndexTree(SUM) apply 'lazy propagation'
--time complexity : O(MlogN)
+- time complexity : O(MlogN)
 
 **********************************************************************************/
 #include <iostream>
