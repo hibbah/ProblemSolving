@@ -7,24 +7,29 @@ http://codeforces.com/contest/579/problem/D
 - title : "OR" Game
 - input : N(<=200,000), K(<=10), X(<=8)
 - output : N개의 숫자들 중. 임의의 숫자에 X를 곱하는 연산을 최대 K번 수행한 뒤,
-		   모든 숫자들을 비트OR연산한 결과값이 최대가 되는 값을 출력
+	모든 숫자들을 비트OR연산한 결과값이 최대가 되는 값을 출력
 - issue :
 	1. 모든 경우의 수 == 연산을 0~K번 하는 경우의 수 == 1+N^1+N^2+N^3+...+N^K
 	2. 연산은 K번 모두 사용하는 것이 이득인가 ?
 	3. N개의 정수들 중. 어떤 숫자에 X를 곱하는 것이 이득인가 ?
-- solution : 
-	- 자릿수가 높을수록 수(이진수)의 값은 커진다.
-	- X>=2 이므로, 어떤 숫자에 X를 곱할 때마다 이진수의 자릿수가 증가한다.
-	- 자릿수가 높은 이진수가 존재하면 bitwiseOR연산의 결과값이 커진다.
-	=> "하나의 숫자"에 "연산횟수 K를 모두 사용"하여 곱하는것이 이득이다.
+- solution :
+- 자릿수가 높을수록 수(이진수)의 값은 커진다.
+- X>=2 이므로, 어떤 숫자에 X를 곱할 때마다 이진수의 자릿수가 증가한다.
+- 자릿수가 높은 이진수가 존재하면 bitwiseOR연산의 결과값이 커진다.
+=> "하나의 숫자"에 "연산횟수 K를 모두 사용"하여 곱하는것이 이득이다.
 
-	1. bitCnt[i] : i번 비트에 set(1)인 숫자의 갯수를 저장
-	2. N개의 각 숫자마다 X^K를 곱한 결과를 bitCnt[]에 등록하여 OR연산 계산
-	3. 1~2의 결과값들중 최대값을 출력
+1. bitCnt[i] : i번 비트에 set(1)인 숫자의 갯수를 저장
+2. N개의 각 숫자마다 X^K를 곱한 결과를 bitCnt[]에 등록하여 OR연산 계산
+3. 1~2의 결과값들중 최대값을 출력
 
-- complexity : O(64N)  /  indexTree solution : O(4N+NlogN)
+- complexity :
+	indexTree solution : O(4N+NlogN)
+	'yukariko' solution : O(64N)
+	editorial solution : O(N)
 
 *********************************************************************************/
+
+// yukariko solution
 
 #include <iostream>
 #include <algorithm>
@@ -88,7 +93,7 @@ int main()
 	return 0;
 }
 
-/****** using INDEX-TREE code
+/****** using INDEX - TREE code
 
 #include <iostream>
 #include <algorithm>
@@ -145,7 +150,7 @@ int main()
 	scanf("%d %d %llu", &n, &k, &x);
 	vi = vector <ull>(n);
 	for (int i = 0; i < n; ++i) scanf("%llu", &vi[i]);
-	
+
 	SEGTREE segtree(vi);
 	ull maxx = 0, mul = 1;
 	for (int i = 0; i < k; ++i) mul *= x;
@@ -156,6 +161,45 @@ int main()
 		ull right = i == n - 1 ? 0 : segtree.query(i + 1, n - 1);
 		maxx = max(maxx, target | left | right);
 	}
+	printf("%llu\n", maxx);
+
+	return 0;
+}
+
+*/
+
+
+/************** CF :: editorial code
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+typedef unsigned long long ull;
+
+const int SIZE = 2e5;
+ull arr[SIZE], pre[SIZE], suf[SIZE];
+
+int main()
+{
+#ifdef _CONSOLE
+	freopen("input.txt", "r", stdin);
+#endif
+
+	int n, k, x;
+	scanf("%d %d %d", &n, &k, &x);
+	for (int i = 0; i < n; ++i) scanf("%llu", &arr[i]);
+
+	pre[0] = arr[0]; suf[n - 1] = arr[n - 1];
+	for (int i = 1; i < n; ++i) pre[i] = pre[i - 1] | arr[i];
+	for (int i = n - 2; i >= 0; --i) suf[i] = suf[i + 1] | arr[i];
+
+	ull mul = 1, maxx = 0;
+	while (k--) mul *= x;
+	for (int i = 0; i < n; ++i)
+		maxx = max(maxx, (arr[i] * mul | pre[i - 1] | suf[i + 1]));
+
 	printf("%llu\n", maxx);
 
 	return 0;
