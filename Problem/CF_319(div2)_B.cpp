@@ -13,8 +13,8 @@ http://codeforces.com/problemset/problem/577/B
 
 - solution :
 	Sum[a][b] : arr[a]~arr[b]까지의 구간합으로 정의.
-	N > M인 경우, 비둘기집의 원리에 의해 Sum[0][i]==Sum[0][j]인 서로 다른 i,j쌍이 반드시 존재.
-	i < j, Sum[0][i] % M == Sum[0][j] % M == R 이라고 가정 하면,
+	N > M인 경우, 비둘기집의원리에 의해 Sum[0][i]%M == Sum[0][j]%M인 서로 다른 i,j쌍이 반드시 존재.
+	i < j, Sum[0][i]%M == Sum[0][j]%M == R 이라고 가정 하면,
 	Sum[0][j] = Sum[0][i] + Sum[i+1][j]에서
 	Sum[0][j] % M = ( Sum[0][i]%M + Sum[i+1][j]%M ) % M 이 되고,
 	R == ( R + Sum[i+1][j]%M ) % M 이므로, 반드시 Sum[i+1][j]%M == 0을 만족해야함.
