@@ -38,16 +38,17 @@ int n, m;
 int arr[1000001];
 ull dp[1001][1001];
 
+// arr[idx]~arr[n-1]의 집합중, 합을 M으로 나눈 결과가 R이 부분집합의 개수 반환
 ull isPossible(const int idx, const int R)
 {
 	if (idx == n) return R == 0 ? 1 : 0;
 
-	ull & ret = dp[idx][R];
+	ull & ret = dp[idx][R]; // memoization
 	if (ret != -1) return ret;
 	ret = 0;
 
-	ret = isPossible(idx + 1, R);
-	ret += isPossible(idx + 1, (R + m - arr[idx]) % m);
+	ret = isPossible(idx + 1, R); // arr[idx]를 선택하지 않은 경우
+	ret += isPossible(idx + 1, (R + m - arr[idx]) % m); // arr[idx]를 포함하는 경우
 
 	return ret;
 }
@@ -68,6 +69,7 @@ int main()
 	bool result;
 	if (n > m) result = true;
 	else result = isPossible(0, 0) >= 2 ? true : false;
+	// 아무것도 선택하지 않은 부분집합(공집합)을 포함하여, 만족하는 부분집합이 2개 이상인 경우만 true
 	
 	printf("%s\n", result ? "YES" : "NO");
 
