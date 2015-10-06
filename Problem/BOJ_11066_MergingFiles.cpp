@@ -7,24 +7,24 @@ https://www.acmicpc.net/problem/11066
 - title : Merging Files
 - input : N(<=500), N integers(<=10,000)
 - output :
-	'ÀÎÁ¢ÇÑ' µÎ ¼ö¸¦ ÇÏ³ª·Î ÇÕÄ¡´Âµ¥ ÇÊ¿äÇÑ ºñ¿ëÀÌ µÎ ¼öÀÇ ÇÕÀÏ ¶§,
-	ÁÖ¾îÁø N°³ÀÇ ¼ýÀÚµéÀ» ÇÏ³ª·Î ÇÕÄ¡´Âµ¥ ÇÊ¿äÇÑ ÃÖ¼Òºñ¿ëÀ» Ãâ·Â.
+	'ì¸ì ‘í•œ' ë‘ ìˆ˜ë¥¼ í•˜ë‚˜ë¡œ í•©ì¹˜ëŠ”ë° í•„ìš”í•œ ë¹„ìš©ì´ ë‘ ìˆ˜ì˜ í•©ì¼ ë•Œ,
+	ì£¼ì–´ì§„ Nê°œì˜ ìˆ«ìžë“¤ì„ í•˜ë‚˜ë¡œ í•©ì¹˜ëŠ”ë° í•„ìš”í•œ ìµœì†Œë¹„ìš©ì„ ì¶œë ¥.
 
 - issue :
-	greedyÀü·«(¸Å ¼ø°£ ÀÎÁ¢ÇÑ µÎ ¼öÀÇ ÇÕÀÌ ÃÖ¼ÒÀÎ ½ÖÀ» ÇÕÄ§)À¸·Î´Â ºÒ°¡´É.
-	ÇöÀç ´Ü°è¿¡¼­ ÃÖ¼±ÀÇ ¼±ÅÃÀÌ ÀÌÈÄ ´Ü°è¿¡¼­ ÁÁÁö ¾ÊÀº °á°ú¸¦ °¡Á®¿Ã ¼ö ÀÖÀ½.
-	=> ´Ù¸¥ ³í¸®°¡ ÀÖ°Å³ª, ¸ðµç °æ¿ì¸¦ ´Ù ¼öÇàÇØºÁ¾ß ÇÔ.
+	greedyì „ëžµ(ë§¤ ìˆœê°„ ì¸ì ‘í•œ ë‘ ìˆ˜ì˜ í•©ì´ ìµœì†Œì¸ ìŒì„ í•©ì¹¨)ìœ¼ë¡œëŠ” ë¶ˆê°€ëŠ¥.
+	í˜„ìž¬ ë‹¨ê³„ì—ì„œ ìµœì„ ì˜ ì„ íƒì´ ì´í›„ ë‹¨ê³„ì—ì„œ ì¢‹ì§€ ì•Šì€ ê²°ê³¼ë¥¼ ê°€ì ¸ì˜¬ ìˆ˜ ìžˆìŒ.
+	=> ë‹¤ë¥¸ ë…¼ë¦¬ê°€ ìžˆê±°ë‚˜, ëª¨ë“  ê²½ìš°ë¥¼ ë‹¤ ìˆ˜í–‰í•´ë´ì•¼ í•¨.
 
 - solution :
-	1. ¼ýÀÚ N°³°¡ ÁÖ¾îÁ³À» ¶§, Ç×»ó N-1¹øÀÇ ÇÕÄ¡±â °úÁ¤À» ¼öÇà. (¹æ¹ý¸¸ ´Ù¸¦»Ó, ÇÕÄ¡´Â È½¼ö´Â µ¿ÀÏ)
-	2. ¹üÀ§ [l, r]¿¡ ´ëÇØ, ÇÕÄ¡´Â ¹æ¹ýÀº ´Ù¾çÇÏÁö¸¸ ÇÕÄ£ °á°ú°ªÀº Sum[l, r]·Î µ¿ÀÏ.
-	3. minCost[l, r] == ¹üÀ§ [l, r]ÀÇ ¼ýÀÚµéÀ» ÇÏ³ª·Î ÇÕÄ¡´Âµ¥ ÇÊ¿äÇÑ ÃÖ¼Òºñ¿ëÀ¸·Î Á¤ÀÇ.
+	1. ìˆ«ìž Nê°œê°€ ì£¼ì–´ì¡Œì„ ë•Œ, í•­ìƒ N-1ë²ˆì˜ í•©ì¹˜ê¸° ê³¼ì •ì„ ìˆ˜í–‰. (ë°©ë²•ë§Œ ë‹¤ë¥¼ë¿, í•©ì¹˜ëŠ” íšŸìˆ˜ëŠ” ë™ì¼)
+	2. ë²”ìœ„ [l, r]ì— ëŒ€í•´, í•©ì¹˜ëŠ” ë°©ë²•ì€ ë‹¤ì–‘í•˜ì§€ë§Œ í•©ì¹œ ê²°ê³¼ê°’ì€ Sum[l, r]ë¡œ ë™ì¼.
+	3. minCost[l, r] == ë²”ìœ„ [l, r]ì˜ ìˆ«ìžë“¤ì„ í•˜ë‚˜ë¡œ í•©ì¹˜ëŠ”ë° í•„ìš”í•œ ìµœì†Œë¹„ìš©ìœ¼ë¡œ ì •ì˜.
 	4. minCost[l, r]= min( minCost[l, k] + minCost[k+1, r] + Sum[l, r] ). (l<=k<r)
-	=> ÁÖ¾îÁø ¹üÀ§[l, r]¿¡ ´ëÇØ, l<=k<rÀ» ¸¸Á·ÇÏ´Â k¸¦ ±âÁØÀ¸·Î [l, k], [l+1, r]À» ¿ì¼±ÀûÀ¸·Î ÇÕÄ¡°í
-	   ±× °á°ú·Î ³²Àº µÎ ¼ýÀÚ¸¦ ¸¶Áö¸·À¸·Î ÇÕÃÄ¼­ ÇÏ³ªÀÇ ¼ýÀÚ·Î ¸¸µé¶§ ÇÊ¿äÇÑ ÃÖ¼Òºñ¿ë
-	   ¸¶Áö¸·À¸·Î ³²Àº µÎ ¼ýÀÚ¸¦ ÇÕÄ¡´Âµ¥ ÇÊ¿äÇÑ ºñ¿ë = Sum[l, l] + Sum[l+1, r] = Sum[l, r]
-	5. ¼ýÀÚ¸¦ ÇÏ³ª·Î ÇÕÄ¡´Âµ¥ °¡´ÉÇÑ ¸ðµç °æ¿ì¸¦ °è»ê.
-	   °è»ê °úÁ¤¿¡¼­ µ¿ÀÏÇÑ ¹üÀ§[l, r]¿¡ ´ëÇÑ ÃÖ¼Òºñ¿ëÀÇ °è»êÀ» Áßº¹À¸·Î ¼öÇàÇÒ ¼ö ÀÖÀ¸¹Ç·Î DPÅ×Å©´Ð ÀÌ¿ë
+	=> ì£¼ì–´ì§„ ë²”ìœ„[l, r]ì— ëŒ€í•´, l<=k<rì„ ë§Œì¡±í•˜ëŠ” kë¥¼ ê¸°ì¤€ìœ¼ë¡œ [l, k], [l+1, r]ì„ ìš°ì„ ì ìœ¼ë¡œ í•©ì¹˜ê³ 
+	   ê·¸ ê²°ê³¼ë¡œ ë‚¨ì€ ë‘ ìˆ«ìžë¥¼ ë§ˆì§€ë§‰ìœ¼ë¡œ í•©ì³ì„œ í•˜ë‚˜ì˜ ìˆ«ìžë¡œ ë§Œë“¤ë•Œ í•„ìš”í•œ ìµœì†Œë¹„ìš©
+	   ë§ˆì§€ë§‰ìœ¼ë¡œ ë‚¨ì€ ë‘ ìˆ«ìžë¥¼ í•©ì¹˜ëŠ”ë° í•„ìš”í•œ ë¹„ìš© = Sum[l, l] + Sum[l+1, r] = Sum[l, r]
+	5. ìˆ«ìžë¥¼ í•˜ë‚˜ë¡œ í•©ì¹˜ëŠ”ë° ê°€ëŠ¥í•œ ëª¨ë“  ê²½ìš°ë¥¼ ê³„ì‚°.
+	   ê³„ì‚° ê³¼ì •ì—ì„œ ë™ì¼í•œ ë²”ìœ„[l, r]ì— ëŒ€í•œ ìµœì†Œë¹„ìš©ì˜ ê³„ì‚°ì„ ì¤‘ë³µìœ¼ë¡œ ìˆ˜í–‰í•  ìˆ˜ ìžˆìœ¼ë¯€ë¡œ DPí…Œí¬ë‹‰ ì´ìš©
 
 - complexity : O(N^3)
 
@@ -55,7 +55,7 @@ ll minCost(const int l, const int r)
  
     for (int mid = l; mid < r; ++mid) // split range [l, mid] + [mid+1, r]
     {
-		// minCost[l, r] = min( minCost[l, mid] + minCost[mid+1, r] + Sum(card[l]~card[r]) )
+	// minCost[l, r] = min( minCost[l, mid] + minCost[mid+1, r] + Sum(card[l]~card[r]) )
         ret = min(ret, minCost(l, mid) + minCost(mid+1, r) + Sum[r] - Sum[l-1]);
     }
     return ret;
@@ -73,15 +73,15 @@ int main()
     {
         memset(cache, -1, sizeof(cache)); // init the memoization table
         
-		// input data
-		int n; scanf("%d", &n);
+	// input data
+	int n; scanf("%d", &n);
         for (int i = 1; i <= n; ++i)
         {
             scanf("%lld", &card[i]);
             Sum[i] = Sum[i - 1] + card[i]; // calc subsum
         }
         
-		printf("%lld\n", minCost(1, n));
+	printf("%lld\n", minCost(1, n));
     }
  
     return 0;
