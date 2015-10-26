@@ -40,20 +40,26 @@ int main()
 	freopen("input.txt", "r", stdin);
 #endif
 
+	// input
 	scanf("%d", &n);
 	for (int i = 0; i < n; ++i) scanf("%d", &arr[i]);
 
 	int minn = 0, l = -1, r = -1;
 	while (l<n && r<n)
 	{
+		// find Alternate-Range R(l, r)
 		for (l = r + 1; l < n - 1; ++l) if (arr[l] != arr[l+1]) break;
 		for (r = l + 1; r < n - 1; ++r) if (arr[r] == arr[r+1]) break;
 		
+		// Range length >= 3
 		if (r-l+1 < 3) continue;
 
+		// to stable state
 		const int mid = (l+r)/2;
 		for (int i = l; i <= r; ++i)
 			arr[i] = i <= mid ? arr[l] : arr[r];
+
+		// the time until stable state that Range(l, r) is (RangeLength-1)/2
 		minn = max(minn, (r-l)/2);
 	}
 
