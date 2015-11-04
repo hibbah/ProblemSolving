@@ -30,9 +30,9 @@ typedef vector <ll> VI;
 class SEGTREE
 {
 public:
-	int n;
-	VI tree;
-	VI lazy;
+	int n; // the number of elements
+	VI tree; // segmentTree based array
+	VI lazy; // propagation information
 
 	SEGTREE(){}
 	SEGTREE(const VI & vi)
@@ -40,7 +40,7 @@ public:
 		n = vi.size();
 		tree = VI(4*n, 0);
 		lazy = VI(4*n, 0);
-		init(1, 0, n-1, vi);
+		init(1, 0, n-1, vi); // construct SegmentTree
 	}
 
 	ll query(const int a, const int b)
@@ -63,13 +63,13 @@ private:
 
 	ll query(const int node, const int l, const int r, const int & a, const int & b)
 	{
-		if (lazy[node] != 0LL)
+		if (lazy[node] != 0LL) // if exist update
 		{
-			propagation(node, l, r, lazy[node]);
+			propagation(node, l, r, lazy[node]); // propagate to child
 			tree[node] += ((r-l+1) * lazy[node]);
 			lazy[node] = 0LL;
 		}
-		if (b < l || r < a) return 0LL;
+		if (b < l || r < a) return 0LL; // invalid range
 		if (a <= l && r <= b) return tree[node];
 
 		const int mid = (l+r)/2;
@@ -78,16 +78,16 @@ private:
 
 	ll update(const int node, const int l, const int r, const int & a, const int & b, const ll & d)
 	{
-		if (lazy[node] != 0LL)
+		if (lazy[node] != 0LL) // if exist update
 		{
-			propagation(node, l, r, lazy[node]);
+			propagation(node, l, r, lazy[node]); // propagate to child
 			tree[node] += ((r-l+1) * lazy[node]);
 			lazy[node] = 0LL;
 		}
-		if (b < l || r < a) return tree[node];
+		if (b < l || r < a) return tree[node]; // invalid range
 		if (a <= l && r <= b)
 		{
-			propagation(node, l, r, d);
+			propagation(node, l, r, d); // propagate to child
 			return tree[node] += ((r-l+1) * d);
 		}
 
@@ -97,8 +97,9 @@ private:
 
 	void propagation(const int & node, const int & l, const int & r, const ll & d)
 	{
-		if (l < r)
+		if (l < r) // if exist child
 		{
+			// propagate to child
 			lazy[node * 2] += d;
 			lazy[node * 2 + 1] += d;
 		}
@@ -114,11 +115,11 @@ int main()
 	freopen("input.txt", "r", stdin);
 #endif
 
+	// input
 	scanf("%d %d %d", &n, &m, &k); m+=k;
-	
-	vi = VI(n);
+	vi = VI(n); // create array[n]
 	for (int i = 0; i<n; ++i) scanf("%lld", &vi[i]);
-	SEGTREE segtree(vi);
+	SEGTREE segtree(vi); // construct SegmentTree
 
 	while (m--)
 	{
@@ -132,6 +133,7 @@ int main()
 			scanf("%d %d %lld", &a, &b, &d);
 			segtree.update(a-1, b-1, d);
 			break;
+
 		case 2: // dply sum
 			scanf("%d %d", &a, &b);
 			printf("%lld\n", segtree.query(a-1, b-1));
